@@ -1,9 +1,6 @@
 ### RedisPython
 
-## Using Redis with Python
-
-Redis-py requires a running Redis server
-
+The Python interface to the Redis key-value store.
 ## Steps to deploy the Redis Application on OpenShift Container Platform
 
 Git clone this repository to your server -
