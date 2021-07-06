@@ -18,7 +18,7 @@ print("Number of subscribers: ",r.pubsub_numsub('first-channel' , 'second-channe
 print("pattern subsciption", r.pubsub_numpat())
 
 # to unsubscribe some channels
-print("Unsubscibing channels", p.unsubscribe('third-channel'))
+print("Unsubscribing channels", p.unsubscribe('third-channel'))
 print("Unsubscribing pattern",p.punsubscribe('pattern2'))
 print("Channels list after unsubscribing", r.pubsub_channels())
 print("Pattern count after unsubscirbing",r.pubsub_numpat())
