@@ -1,6 +1,6 @@
 import redis
 
-r = redis.StrictRedis(host='p630-master.p630.cecc.ihost.com',port=31000,password='root123')
+r = redis.StrictRedis(host='p1322-master.p1322.cecc.ihost.com',port=31000,password='root123')
 p = r.pubsub()
 #channels and patters are subscribed
 p.subscribe('first-channel', 'second-channel','third-channel')
