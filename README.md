@@ -56,15 +56,7 @@ To install redis in your Openshift system, make sure you have installed python3 
 To install redis-py
 ` pip install redis `
 
-After installing redis-py, establish a connection to Redis using redis-py
-```
-import redis
-
-r = redis.StrictRedis(
-    host='hostname',
-    port=port,
-    password='password')
-```
+After installing redis-py, establish a connection to Redis using redis-py by importing redis and mentioning hostname, port and password. In pubsub.py script change hostname, port and password accordingly.
 
 ### Publish / Subscribe
 
@@ -76,13 +68,57 @@ After having redis-server, python 3 and Python Redis client installed on your sy
 
 ```
 [root@p1322-bastion RedisPython]# python3 pubsub.py
-Channles list: [b'third-channel', b'second-channel', b'first-channel']
+Channels list: [b'third-channel', b'second-channel', b'first-channel']
 Number of subscribers:  [(b'first-channel', 1), (b'second-channel', 1), (b'third-channel', 1)]
-pattern subsciption 2
-Unsubscibing channels :1 None
+pattern subscription 2
+Unsubscribing channels :1 None
 Unsubscribing pattern :1 None
 Channels list after unsubscribing [b'second-channel', b'first-channel']
-Pattern count after unsubscirbing 1
+Pattern count after unsubscribing 1
 ```
 
 Any publisher can publish through the channel and, the subscriber will receive all the new messages that are published on that particular channel. Redis handles the communication between publisher and subscriber without any hassle.
+
+In pubsub.py script we had published data only on first and second channel. In first-channel we had published two datas and it is only available for the users who subscribed for first-channel. In second channel we had published only one data and it is available only for second-channel subscribers. We didn’t publish any data in third-channel, so third-channel subscribers will not receive any data.
+```
+r.publish('first-channel', 'first data entered')
+r.publish('second-channel', 'This data is only for second-channel subscribers')
+r.publish('first-channel', 'first channel data')
+```
+
+To validate let’s login to all three channels by subscribing all three channels and check the data published:
+First-channel:
+```
+p1322-master.p1322.cecc.ihost.com:31000> SUBSCRIBE first-channel
+Reading messages... (press Ctrl-C to quit)
+1) "subscribe"
+2) "first-channel"
+3) (integer) 1
+1) "message"
+2) "first-channel"
+3) "first data entered"
+1) "message"
+2) "first-channel"
+3) "first channel data"
+```
+
+Second-channel :
+```
+p1322-master.p1322.cecc.ihost.com:31000> SUBSCRIBE second-channel
+Reading messages... (press Ctrl-C to quit)
+1) "subscribe"
+2) "second-channel"
+3) (integer) 1
+1) "message"
+2) "second-channel"
+3) "This data is only for second-channel subscribers"
+```
+
+Third-channel:
+```
+p1322-master.p1322.cecc.ihost.com:31000> SUBSCRIBE third-channel
+Reading messages... (press Ctrl-C to quit)
+1) "subscribe"
+2) "third-channel"
+3) (integer) 1
+```
