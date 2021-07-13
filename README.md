@@ -1,6 +1,6 @@
 ### RedisPython
 
-The Python interface to the Redis key-value store. Here we are using Redis as a Publisher/Subscriber platform. In this pattern, publishers can issue messages to any number of subscribers on a channel.
+The Python interface to the Redis key-value store. Redis is a popular key-value data store known for its speed and flexibility. In this, I described some of the more commonly discussed Redis features with python to get our hands on the essence of Redis. Here we are using Redis as a Publisher/Subscriber platform. In this pattern, publishers can issue messages to any number of subscribers on a channel.
 
 ## Steps to deploy the Redis Application on OpenShift Container Platform
 
